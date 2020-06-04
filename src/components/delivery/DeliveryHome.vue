@@ -4,7 +4,7 @@
     <el-header>
       <div>
         <img src="../../assets/logo.png">
-        <span>仿饿了么商家界面</span>
+        <span>仿饿了么配送员界面</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
@@ -26,7 +26,7 @@
             </template>
 
             <!-- 二级菜单 -->
-            <el-menu-item :index="'/store/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/store/' + subItem.path)">
+            <el-menu-item :index="'/delivery/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/delivery/' + subItem.path)">
               <template slot="title">
                 <!-- 图标 -->
                 <i class="el-icon-menu"></i>
@@ -77,7 +77,7 @@ export default {
     getMenuList () {
       this.menulist = [{ id: 125, authName: '店铺管理', path: 'users', children: [{ id: 110, authName: '店铺信息', path: 'users', children: [], order: null }], order: 1 },
         { id: 101, authName: '商品管理', path: 'goods', children: [{ id: 104, authName: '商品列表', path: 'goods', children: [], order: null }], order: 2 },
-        { id: 102, authName: '订单管理', path: 'orders', children: [{ id: 107, authName: '订单列表', path: 'orders', children: [], order: null }], order: 3 },
+        { id: 102, authName: '订单管理', path: 'orders', children: [{ id: 107, authName: '我的订单', path: 'orders', children: [], order: null }], order: 3 },
         { id: 145, authName: '数据统计', path: 'reports', children: [{ id: 146, authName: '数据报表', path: 'reports', children: [], order: null }], order: 4 }]
     },
     // 点击按钮，切换菜单的折叠与展开

@@ -49,8 +49,8 @@ export default {
       // ],
       // 这是登录表单的数据绑定对象
       loginForm: {
-        userName: '1123',
-        password: '12'
+        userName: '31',
+        password: '31'
       },
       // 这是表单的验证规则对象
       loginFormRules: {
@@ -90,9 +90,9 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         // console.log(JSON.stringify(this.loginForm))
-        console.log(this.loginForm)
+        // console.log(this.loginForm)
         const { data: res } = await this.$http.post('/account/login', this.loginForm)
-        console.log(res)
+        // console.log(res)
         if (res <= 0) return this.$message.error('登录失败！')
         this.$message.success('登录成功！')
         // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
@@ -100,10 +100,14 @@ export default {
         //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
         // window.sessionStorage.setItem('token', res.data.token)
         // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
+        // 存储登录账号的id
+        window.sessionStorage.setItem('id', this.loginForm.userName)
         if (res === 4) {
           this.$router.push('/admin/home')
-        } else {
+        } else if (res === 1) {
           this.$router.push('/store/home')
+        } else {
+          this.$router.push('/delivery/home')
         }
       })
     }

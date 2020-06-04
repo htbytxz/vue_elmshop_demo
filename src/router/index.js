@@ -12,6 +12,10 @@ import Report from '../components/admin/report/Report'
 import StoreHome from '../components/store/StoreHome'
 import StoreWelcome from '../components/store/Welcome'
 import Goods from '../components/store/goods/Goods'
+// 配送员后台
+import DeliveryHome from '../components/delivery/DeliveryHome'
+import DeliveryWelcome from '../components/delivery/Welcome'
+import DeliveryOrers from '../components/delivery/orders/Orders'
 
 Vue.use(VueRouter)
 
@@ -41,6 +45,15 @@ const router = new VueRouter({
       children: [
         { path: '/store/welcome', component: StoreWelcome },
         { path: '/store/goods', component: Goods }
+      ]
+    },
+    {
+      path: '/delivery/home',
+      component: DeliveryHome,
+      redirect: '/delivery/welcome',
+      children: [
+        { path: '/delivery/welcome', component: DeliveryWelcome },
+        { path: '/delivery/orders', component: DeliveryOrers }
       ]
     }
   ]

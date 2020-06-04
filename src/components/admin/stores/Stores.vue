@@ -35,7 +35,7 @@
             <template slot-scope="scope">
               <!-- 修改按钮 -->
               <el-tooltip effect="dark" content="改变商家状态" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-warning-outline" size="mini" @click="changeStatusById(scope.row.shopId)"></el-button>
+                <el-button type="danger" icon="el-icon-warning-outline" size="mini" @click="changeStatusById(scope.row.shopId)"></el-button>
               </el-tooltip>
               <!-- 删除按钮 -->
 <!--              <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeStoreById(scope.row.id)"></el-button>-->
@@ -94,9 +94,6 @@ export default {
         }
       ).catch(err => err)
 
-      // 如果管理员确认删除，则返回值为字符串 confirm
-      // 如果管理员取消了删除，则返回值为字符串 cancel
-      // console.log(confirmResult)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消修改')
       }

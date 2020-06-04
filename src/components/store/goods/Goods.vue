@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     async getGoodsList () {
-      // const { data: res } = await this.$http.get('/admin/findAllShop')
+      // const { data: res } = await this.$http.post('/shop/findAllFoods', )
       // console.log(res)
       // if (res !== 1) return this.$message.error('获取商家列表失败！')
       // this.$message.success('获取商家列表成功')

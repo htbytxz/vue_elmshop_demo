@@ -2,7 +2,7 @@
   <div>
     <!-- 面包屑导航区域 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/admin/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/delivery/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>订单管理</el-breadcrumb-item>
       <el-breadcrumb-item>订单列表</el-breadcrumb-item>
     </el-breadcrumb>
@@ -50,10 +50,12 @@
         </el-table-column>
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="订单ID" prop="orderId" width="100px"></el-table-column>
-        <el-table-column label="价格" prop="price"></el-table-column>
+        <el-table-column label="下单时间" prop="createTime" sortable></el-table-column>
         <el-table-column label="店铺" prop="shopName"></el-table-column>
-        <el-table-column label="备注" prop="comment"></el-table-column>
-        <el-table-column label="状态" prop="status">
+        <el-table-column label="状态" prop="status"
+        :filters="[{text:'待配送', value: 3}]"
+        :filter-method="filterStatus"
+        filter-placement="bottom-end">
           <template slot-scope="scope">
             <el-tag type="danger" v-if="scope.row.status === 1">待接单</el-tag>
             <el-tag type="primary" v-else-if="scope.row.status === 2">已接单</el-tag>
@@ -64,6 +66,14 @@
           </template>
         </el-table-column>
         <el-table-column label="地址" prop="address"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <!-- 配送完成按钮 -->
+            <el-tooltip effect="dark" content="配送完成" placement="top" :enterable="false">
+              <el-button type="success" icon="el-icon-check" size="mini"  @click="finishOrderById(scope.row.orderId)"></el-button>
+            </el-tooltip>
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -81,50 +91,39 @@ export default {
   },
   methods: {
     async getOrdersList () {
-      const { data: res } = await this.$http.get('/admin/findAllOrders')
+      const { data: res } = await this.$http.get('/deliveryman/findMyOrders/' + window.sessionStorage.getItem('id'))
       // console.log(res)
       this.$message.success('获取订单列表成功')
       this.orderlist = res
+    },
+    filterStatus (value, row) {
+      return row.status === value
+    },
+    // 根据Id完成配送
+    async finishOrderById (id) {
+      const confirmResult = await this.$confirm(
+        '确定完成订单的配送?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch(err => err)
+
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消确认')
+      }
+
+      const { data: res } = await this.$http.get('/deliveryman/changeOrder/' + id + '/' + window.sessionStorage.getItem('id'))
+      // console.log(res)
+      if (res !== 2) {
+        return this.$message.error('完成配送失败！')
+      }
+
+      this.$message.success('配送成功！')
+      this.getOrdersList()
     }
-    // async findAllByShopName () {
-    //   console.log(JSON.stringify(this.Name))
-    //   const { data: res } = await this.$http.post('/admin/findAllByShopName', this.Name)
-    //   // console.log(res)
-    //   // if (res !== 1) return this.$message.error('查询商家列表失败！')
-    //   this.$message.success('查询商家列表成功')
-    //   this.storelist = res
-    // },
-    // 根据Id修改商家的状态（不封号改为封号，封号的则解封
-    // async changeStatusById (id) {
-    //   this.ID.shopId = id
-    //   // console.log(this.ID)
-    //   // 弹框询问管理员是否删除数据
-    //   const confirmResult = await this.$confirm(
-    //     '此操作将改变商家状态, 是否继续?',
-    //     '提示',
-    //     {
-    //       confirmButtonText: '确定',
-    //       cancelButtonText: '取消',
-    //       type: 'warning'
-    //     }
-    //   ).catch(err => err)
-    //
-    //   // 如果管理员确认删除，则返回值为字符串 confirm
-    //   // 如果管理员取消了删除，则返回值为字符串 cancel
-    //   // console.log(confirmResult)
-    //   if (confirmResult !== 'confirm') {
-    //     return this.$message.info('已取消修改')
-    //   }
-    //
-    //   const { data: res } = await this.$http.post('/admin/changeShopStatus', this.ID)
-    //
-    //   if (res !== 1) {
-    //     return this.$message.error('修改状态失败！')
-    //   }
-    //
-    //   this.$message.success('修改状态成功！')
-    //   this.getStoresList()
-    // }
   }
 }
 </script>
