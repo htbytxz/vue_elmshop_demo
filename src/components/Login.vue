@@ -1,5 +1,16 @@
 <template>
   <div class="login_container">
+<!--    <div class="carousel__container">-->
+<!--      <el-carousel :height="bannerHeight+'px'">-->
+<!--        <el-carousel-item v-for="item in imgUrls" :key="item.id">-->
+<!--          <el-row>-->
+<!--            <el-col>-->
+<!--              <img ref="image" :src="item.idView" class="bannerImg" @load="imgLoad"/>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
+<!--        </el-carousel-item>-->
+<!--      </el-carousel>-->
+<!--    </div>-->
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
@@ -30,6 +41,12 @@
 export default {
   data () {
     return {
+      // bannerHeight: '',
+      // imgUrls: [
+      //   { id: 0, idView: require('../assets/banner1.jpg') },
+      //   { id: 1, idView: require('../assets/banner2.jpg') },
+      //   { id: 2, idView: require('../assets/banner3.jpg') }
+      // ],
       // 这是登录表单的数据绑定对象
       loginForm: {
         userName: '1123',
@@ -50,7 +67,18 @@ export default {
       }
     }
   },
+  // mounted () {
+  //   window.addEventListener('resize', () => {
+  //     this.bannerHeight = this.$refs.image[0].height
+  //     this.imgload()
+  //   }, false)
+  // },
   methods: {
+    // imgload () {
+    //   this.$nextTick(() => {})
+    //   this.bannerHeight = this.$refs.image[0].height
+    //   console.log(this.$refs.image[0].height)
+    // },
     // 点击重置按钮，重置登录表单
     resetLoginForm () {
       this.$refs.loginFormRef.resetFields()
@@ -88,6 +116,18 @@ export default {
     background-color: #2b4b6b;
     height: 100%;
   }
+  /*.bannerImg{*/
+  /*  width: 100%;*/
+  /*  height: inherit;*/
+  /*  min-height: 360px;*/
+  /*  min-width: 1400px;*/
+  /*}*/
+  /*.carousel__container {*/
+  /*  height: 100%;*/
+  /*  width: 100%;*/
+  /*  position: absolute;*/
+  /*  z-index: 1;*/
+  /*}*/
 
   .login_box {
     width: 450px;
@@ -95,6 +135,7 @@ export default {
     background-color: #fff;
     border-radius: 3px;
     position: absolute;
+    z-index: 2;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

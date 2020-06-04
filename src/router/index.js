@@ -5,6 +5,7 @@ import Register from '../components/Register'
 import AdminHome from '../components/admin/AdminHome'
 import AdminWelcome from '../components/admin/Welcome'
 import Stores from '../components/admin/stores/Stores'
+import AdminOrders from '../components/admin/orders/Orders'
 import Users from '../components/admin/users/Users'
 import Report from '../components/admin/report/Report'
 // 商家后台
@@ -29,6 +30,7 @@ const router = new VueRouter({
         { path: '/admin/welcome', component: AdminWelcome },
         { path: '/admin/users', component: Users },
         { path: '/admin/stores', component: Stores },
+        { path: '/admin/orders', component: AdminOrders },
         { path: '/admin/reports', component: Report }
       ]
     },

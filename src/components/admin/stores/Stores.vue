@@ -63,13 +63,14 @@ export default {
     this.getStoresList()
   },
   methods: {
-    async getStoresList () {
+    async getStoresList () { // '/customer/getShopList'
       const { data: res } = await this.$http.get('/admin/findAllShop')
       // console.log(res)
       // if (res !== 1) return this.$message.error('获取商家列表失败！')
       this.$message.success('获取商家列表成功')
       this.storelist = res
     },
+    // 根据商家名称查询
     async findAllByShopName () {
       console.log(JSON.stringify(this.Name))
       const { data: res } = await this.$http.post('/admin/findAllByShopName', this.Name)
