@@ -92,9 +92,9 @@ export default {
   methods: {
     async getOrdersList () {
       const { data: res } = await this.$http.get('/deliveryman/findMyOrders/' + window.sessionStorage.getItem('id'))
-      // console.log(res)
-      this.$message.success('获取订单列表成功')
-      this.orderlist = res
+      console.log(res)
+      // this.$message.success('获取订单列表成功')
+      // this.orderlist = res
     },
     filterStatus (value, row) {
       return row.status === value

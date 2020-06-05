@@ -15,18 +15,19 @@
         <el-form-item label="电话" label-width="70px" prop="phoneNumber">
           <el-input v-model="registerForm.phoneNumber"></el-input>
         </el-form-item>
-        <el-form-item label="类型" label-width="70px" prop="type">
-          <el-switch v-model="registerForm.type"
-                     active-text="我是商家"
-                     inactive-text="我是用户"
-                     active-value="1"
-                     inactive-value="2">
+        <el-form-item label="性别" label-width="70px" prop="sex">
+          <el-switch v-model="registerForm.sex"
+                     active-text="女"
+                     inactive-text="男"
+                     active-value="女"
+                     inactive-value="男">
           </el-switch>
         </el-form-item>
-        <el-form-item label="性别" label-width="70px" prop="sex">
-          <el-radio-group v-model="registerForm.sex">
-            <el-radio label="男"></el-radio>
-            <el-radio label="女"></el-radio>
+        <el-form-item label="类型" label-width="70px" prop="type">
+          <el-radio-group v-model="registerForm.type">
+            <el-radio label="2">我是用户</el-radio>
+            <el-radio label="1">我是商家</el-radio>
+            <el-radio label="3">我是配送员</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- 按钮区域 -->
@@ -60,7 +61,7 @@ export default {
         userId: '',
         userName: '',
         password: '',
-        type: '2',
+        type: '',
         sex: '男',
         // profile: '',
         phoneNumber: '15666666666'
@@ -82,8 +83,8 @@ export default {
           { required: true, message: '请输入登录密码', trigger: 'blur' },
           { min: 2, max: 15, message: '长度在 2 到 15 个字符', trigger: 'blur' }
         ],
-        sex: [
-          { required: true, message: '请选择性别', trigger: 'change' }
+        type: [
+          { required: true, message: '请选择类型', trigger: 'change' }
         ],
         // 验证电话是否合法
         phoneNumber: [
@@ -123,7 +124,7 @@ export default {
             sex: this.registerForm.sex,
             phoneNumber: this.phoneNumber
           })
-        console.log(res)
+        // console.log(res)
         if (res !== 0) return this.$message.error('注册失败！')
         this.$message.success('注册成功！')
         this.$router.push('/login')
