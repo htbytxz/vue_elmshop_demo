@@ -53,7 +53,15 @@
         <el-table-column label="价格" prop="price"></el-table-column>
         <el-table-column label="店铺" prop="shopName"></el-table-column>
         <el-table-column label="备注" prop="comment"></el-table-column>
-        <el-table-column label="状态" prop="status">
+        <el-table-column label="状态" prop="status"
+                         :filters="[{text:'待接单', value: 1},
+                         {text:'已接单', value: 2},
+                         {text:'待配送', value: 3},
+                         {text:'配送中', value: 4},
+                         {text:'待领取', value: 5},
+                         {text:'已完成', value: 6}]"
+                         :filter-method="filterStatus"
+                         filter-placement="bottom-end">
           <template slot-scope="scope">
             <el-tag type="danger" v-if="scope.row.status === 1">待接单</el-tag>
             <el-tag type="primary" v-else-if="scope.row.status === 2">已接单</el-tag>
@@ -80,6 +88,9 @@ export default {
     this.getOrdersList()
   },
   methods: {
+    filterStatus (value, row) {
+      return row.status === value
+    },
     async getOrdersList () {
       const { data: res } = await this.$http.get('/admin/findAllOrders')
       // console.log(res)

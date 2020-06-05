@@ -53,7 +53,7 @@
         <el-table-column label="下单时间" prop="createTime" sortable></el-table-column>
         <el-table-column label="店铺" prop="shopName"></el-table-column>
         <el-table-column label="状态" prop="status"
-        :filters="[{text:'待配送', value: 3}]"
+        :filters="[{text:'配送中', value: 4}]"
         :filter-method="filterStatus"
         filter-placement="bottom-end">
           <template slot-scope="scope">
@@ -93,8 +93,8 @@ export default {
     async getOrdersList () {
       const { data: res } = await this.$http.get('/deliveryman/findMyOrders/' + window.sessionStorage.getItem('id'))
       console.log(res)
-      // this.$message.success('获取订单列表成功')
-      // this.orderlist = res
+      this.$message.success('获取订单列表成功')
+      this.orderlist = res
     },
     filterStatus (value, row) {
       return row.status === value
