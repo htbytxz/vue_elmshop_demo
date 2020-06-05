@@ -128,7 +128,7 @@ export default {
     async showEditDialog (id) {
       this.editDialogVisible = true
       const { data: res } = await this.$http.post('shop/findFood/' + id)
-      console.log(res)
+      // console.log(res)
       this.editForm = res
       // console.log(this.editForm)
     },
@@ -140,7 +140,7 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('shop/updateFoodInfo/', this.editForm)
-        // console.log(res)
+        console.log(res)
         if (res === -1) return this.$message.error('修改失败！')
         this.editDialogVisible = false
         if (res === 1) return this.$message.warning('没有进行任何修改！')

@@ -13,6 +13,7 @@ import StoreHome from '../components/store/StoreHome'
 import StoreWelcome from '../components/store/Welcome'
 import Goods from '../components/store/goods/Goods'
 import Add from '../components/store/goods/Add'
+import StoreOrders from '../components/store/orders/Orders'
 // import Edit from '../components/store/goods/Edit'
 // import StoreUser from '../components/store/user/User'
 // 配送员后台
@@ -49,7 +50,8 @@ const router = new VueRouter({
         { path: '/store/welcome', component: StoreWelcome },
         // { path: '/store/users', component: StoreUser },
         { path: '/store/goods', component: Goods },
-        { path: '/store/goods/add', component: Add }
+        { path: '/store/goods/add', component: Add },
+        { path: '/store/orders', component: StoreOrders }
         // { path: '/store/goods/edit', component: Edit }
       ]
     },
